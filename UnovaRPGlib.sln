@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnovaRPGlib", "UnovaRPGlib\UnovaRPGlib.csproj", "{4968BECD-8201-4C4D-B9DC-061DBD51E701}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{F8A1E511-B981-493D-B9A8-86778D639368}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnovaRPGlib", "UnovaRPGlib\UnovaRPGlib.csproj", "{8F2D20F9-AF73-428D-BBAC-66CF60C84E59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4968BECD-8201-4C4D-B9DC-061DBD51E701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4968BECD-8201-4C4D-B9DC-061DBD51E701}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4968BECD-8201-4C4D-B9DC-061DBD51E701}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4968BECD-8201-4C4D-B9DC-061DBD51E701}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F8A1E511-B981-493D-B9A8-86778D639368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8A1E511-B981-493D-B9A8-86778D639368}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8A1E511-B981-493D-B9A8-86778D639368}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8A1E511-B981-493D-B9A8-86778D639368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F2D20F9-AF73-428D-BBAC-66CF60C84E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F2D20F9-AF73-428D-BBAC-66CF60C84E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F2D20F9-AF73-428D-BBAC-66CF60C84E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F2D20F9-AF73-428D-BBAC-66CF60C84E59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

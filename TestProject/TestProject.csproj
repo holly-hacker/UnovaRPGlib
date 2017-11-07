@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnovaRPGlib\UnovaRPGlib.csproj">
-      <Project>{4968becd-8201-4c4d-b9dc-061dbd51e701}</Project>
+      <Project>{8f2d20f9-af73-428d-bbac-66cf60c84e59}</Project>
       <Name>UnovaRPGlib</Name>
     </ProjectReference>
   </ItemGroup>
