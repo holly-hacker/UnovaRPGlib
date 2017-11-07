@@ -25,7 +25,11 @@ namespace TestProject
             }
 
             Console.WriteLine($"\n\nLogged in, welcome {creds[0]}.");
-            sess.Heal();
+
+            //sess.Heal();
+
+            var z1 = sess.GetZoneById(1);
+            var m1 = z1.Maps[0];    //route 101
         }
     }
 }

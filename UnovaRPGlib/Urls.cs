@@ -13,5 +13,6 @@ namespace UnovaRPGlib
         public const string UrlLoginAction = UrlLogin + "?doLogin";
 
         public const string UrlPokemonCenter = UrlBase + "/pokemon_center.php";
+        public const string UrlMap = UrlBase + "/map.php";
     }
 }
