@@ -16,7 +16,6 @@ namespace UnovaRPGlib.Utils
                     request.Referer = LastPage;
             }
             LastPage = address.ToString();
-            req.Timeout = 1000;
             return req;
         }
     }

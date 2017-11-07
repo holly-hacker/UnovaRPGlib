@@ -26,6 +26,7 @@ namespace TestProject
 
             var z1 = sess.GetZoneById(1);
             var m1 = z1.Maps[0];    //route 101
+            var team = sess.GetBattleTeam();
         }
     }
 }

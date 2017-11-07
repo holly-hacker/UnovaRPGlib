@@ -45,10 +45,24 @@ namespace UnovaRPGlib
             var cmd = _web.Xajax(Urls.UrlMap, "loadZone", 1).First(a => a.Command == "as");
             
             string html = cmd.Value.Text;
-            Console.WriteLine(html);
+            
+            if (html.Contains("leader-list"))
+                throw new NotImplementedException("Elite 4 and Battle Frontier are not supported yet");
 
             //extract from html
             return UnovaZone.FromHtml(html);
+        }
+
+        public UnovaPokemon[] GetBattleTeam()
+        {
+            //TODO: unsafe, add error checking
+            var cmd1 = _web.Xajax(Urls.UrlMap + "?map=1&zone=1", "getBattleTeam", "", true).ToArray();
+            var cmd = cmd1.First(a => a.Command == "as");
+
+            string html = cmd.Value.Text;
+            
+            //extract from html
+            return UnovaPokemon.FromHtml(html);
         }
     }
 }
