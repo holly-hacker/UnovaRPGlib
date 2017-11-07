@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using UnovaRPGlib.Xajax;
 
 namespace UnovaRPGlib
@@ -16,18 +17,19 @@ namespace UnovaRPGlib
         public static string XajaxString(this WebClient wc, string url, string function, params object[] args)
         {
             long time = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-
-            var nvc = new NameValueCollection {
-                {"xjxfun", function},
-                {"xjxr", time.ToString()}
+            
+            var dic = new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("xjxfun", function),
+                new KeyValuePair<string, string>("xjxr", time.ToString())
             };
 
             foreach (XajaxValue arg in args.Select(a => new XajaxValue(a))) {
-                nvc.Add("xjxargs[]", arg.ToString());
+                dic.Add(new KeyValuePair<string, string>("xjxargs[]", arg.ToString()));
             }
 
-            byte[] resp = wc.UploadValues(url, nvc);
-            return Encoding.UTF8.GetString(resp);
+            string query = string.Join("&", dic.Select(a => $"{HttpUtility.UrlEncode(a.Key)}={HttpUtility.UrlEncode(a.Value)}"));
+            wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+            return wc.UploadString(url, query);
         }
     }
 }
