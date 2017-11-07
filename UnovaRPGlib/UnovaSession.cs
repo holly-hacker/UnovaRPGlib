@@ -3,37 +3,34 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using UnovaRPGlib.Utils;
-using UnovaRPGlib.Xajax;
 
 namespace UnovaRPGlib
 {
     public class UnovaSession
     {
-        private CookieAwareWebClient _web = new CookieAwareWebClient();
+        private readonly CookieAwareWebClient _web = new CookieAwareWebClient();
 
         private string CSRFToken => _web.Cookies.GetCookies(new Uri(_web.LastPage))["unovarpg"]?.Value;
 
-        public UnovaSession()
-        { }
+        private UnovaSession() { }
 
-        public bool Login(string username, string password)
+        public static UnovaSession Create(string username, string password)
         {
-            //TODO: clear cookies
-            //TODO: or, make this a static method that returns a UnovaSession
+            var us = new UnovaSession();
 
             //initialize cookies
             //_web.DownloadString(Urls.UrlBase);
-            _web.DownloadString(Urls.UrlLogin);
+            us._web.DownloadString(Urls.UrlLogin);
 
             //submit login request
-            byte[] resp = _web.UploadValues(Urls.UrlLoginAction, new NameValueCollection {
-                {"unovarpg", CSRFToken},
+            byte[] resp = us._web.UploadValues(Urls.UrlLoginAction, new NameValueCollection {
+                {"unovarpg", us.CSRFToken},
                 {"username", username},
-                {"password", password}  //TODO: check if characters have to be escaped
+                {"password", password}
             });
             string respS = Encoding.UTF8.GetString(resp);
-            
-            return !respS.Contains("validateLogin");    //this is a js function that only exists on the login page
+
+            return !respS.Contains("validateLogin") ? us : null;
         }
 
         public void Heal()
