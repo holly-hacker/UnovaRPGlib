@@ -39,14 +39,7 @@ namespace UnovaRPGlib
 
         public void Heal()
         {
-            long dong = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-
-            byte[] resp = _web.UploadValues(Urls.UrlPokemonCenter, new NameValueCollection {
-                {"xjxfun", "recoverMyPokemon"},
-                {"xjxr", dong.ToString()}
-            });
-            string respS = Encoding.UTF8.GetString(resp);
-            Console.WriteLine(respS);
+            string resp = _web.Xajax(Urls.UrlPokemonCenter, "recoverMyPokemon");
         }
     }
 }
