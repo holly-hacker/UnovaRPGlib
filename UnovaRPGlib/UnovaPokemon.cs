@@ -20,7 +20,7 @@ namespace UnovaRPGlib
         public int HpMax { get; private set; }
         public string Status { get; private set; }
 
-        public Dictionary<string, int> Moves { get; } = new Dictionary<string, int>();
+        public Dictionary<string, int> MovesPP { get; } = new Dictionary<string, int>();
 
         internal static UnovaPokemon[] FromHtml(string html)
         {
@@ -52,7 +52,7 @@ namespace UnovaRPGlib
                 for (int j = 0; j < matches.Count; j++) {
                     string name = matches[j].Groups["name"].Value;
                     int pp = int.Parse(matches[j].Groups["ppCur"].Value);
-                    up.Moves[name] = pp;
+                    up.MovesPP[name] = pp;
                 }
 
                 arr[i] = up;

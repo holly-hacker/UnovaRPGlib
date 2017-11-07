@@ -8,10 +8,14 @@ namespace UnovaRPGlib
     public class UnovaBattle
     {
         private static readonly Regex RegexToken = new Regex(@"setBattle\((.+')\)");
+        private static readonly Regex RegexRunToken = new Regex(@"map=\d+&amp;p=(?<p>[^=]+=+)");
 
-        private int _pokeId, _level, _mapId;
+        public int PokeId { get; private set; }
+        public int Level { get; private set; }
+        private int _mapId;
 
         private string _token;
+        private string _runToken;
         private UnovaSession _sess;
 
         internal static UnovaBattle FromHtml(UnovaSession sess, string html, int pokeId, int level, int mapId)
@@ -19,53 +23,49 @@ namespace UnovaRPGlib
             var ub = new UnovaBattle();
 
             ub._sess = sess;
-            ub._pokeId = pokeId;
-            ub._level = level;
+            ub.PokeId = pokeId;
+            ub.Level = level;
             ub._mapId = mapId;
 
-            //get token
+            //get tokens
             string fParams = RegexToken.Match(html).Groups[1].Value;
             ub._token = fParams.Split(',').Last().Trim('\'', ' ');
+            ub._runToken = RegexToken.Match(html).Groups[1].Value;
 
             return ub;
         }
 
         public void Auth()
         {
-            SendCommand(idPokemon: _pokeId.ToString(), level: _level.ToString(), idMap: _mapId.ToString(), token: _token);
+            //TODO: change Attack() parameter to move index (0-based), get moveid[] from this
+            SendCommand(idPokemon: PokeId.ToString(), level: Level.ToString(), idMap: _mapId.ToString(), token: _token);
         }
 
-        public void Attack(int attackId)
+        public string Attack(int attackId)
         {
             //TODO: return results
-            SendCommand(form: attackId.ToString(), idPokemon: _pokeId.ToString(), level: _level.ToString(), idMap: _mapId.ToString());
+            var cmd = SendCommand(moveId: attackId.ToString(), idPokemon: PokeId.ToString(), level: Level.ToString(), idMap: _mapId.ToString())
+                .First(a => a.Attributes["id"] == "battleEvents");
 
+            return cmd.Value.Text.Replace("<br />", "\n");
         }
 
-        private void SendCommand(string banchNumber = "0", string form = "", string type = "wild",
+        public void Run()
+        {
+            _sess.Web.DownloadString(Urls.UrlMap + $"?map={_mapId}&p={_runToken}");
+        }
+
+        private XajaxCommand[] SendCommand(string banchNumber = "0", string moveId = "", string type = "wild",
             string idCapturedPokemon = "", string idPokemon = "", string level = "", string idMap = "",
             string hpLeft = "", string useItem = "undefined", string keepBanchPokemon = "undefined", 
             string token = "")
         {
-            //banchNumber = 0
-            //form = moveid (eg. 427)
-            //type = wild
-            //idCapturedPokemon = ''
-            //idPokemon = other pokemon id
-            //level = level
-            //idMap = map id
-            //useItem = itemid, null OR keepBanchPokemon, undefined
-            //attackPP, undefined
-            //token, empty or token
+            //banchNumber: selected pokemon index?
+            //idCapturedPokemon: ?
 
-            var cmd = _sess.Web.Xajax(Urls.UrlBattleWild, "setBattle", 
-                banchNumber, form, type, idCapturedPokemon, idPokemon, level, idMap, hpLeft, useItem, keepBanchPokemon, token)
-                .ToArray().First(a => a.Attributes["id"] == "battleEvents");
-
-            Console.WriteLine(cmd.Attributes["id"]);
-            Console.WriteLine(cmd.Value.Text.Replace("<br />", "\n"));
-            Console.WriteLine();
-            //TODO
+            return _sess.Web.Xajax(Urls.UrlBattleWild, "setBattle", 
+                banchNumber, moveId, type, idCapturedPokemon, idPokemon, level, idMap, hpLeft, useItem, keepBanchPokemon, token)
+                .ToArray();
         }
     }
 }
