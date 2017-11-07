@@ -47,6 +47,10 @@
     <Compile Include="Utils\CookieAwareWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Xajax\Enums.cs" />
+    <Compile Include="Xajax\XajaxCommand.cs" />
+    <Compile Include="Xajax\XajaxParser.cs" />
+    <Compile Include="Xajax\XajaxValue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

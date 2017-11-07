@@ -39,7 +39,7 @@ namespace UnovaRPGlib
 
         public void Heal()
         {
-            string resp = _web.Xajax(Urls.UrlPokemonCenter, "recoverMyPokemon");
+            string resp = _web.XajaxString(Urls.UrlPokemonCenter, "recoverMyPokemon");
         }
     }
 }
