@@ -8,7 +8,10 @@ namespace UnovaRPGlib
     {
         public const string Domain = "www.unovarpg.com";
         public const string UrlBase = "https://" + Domain;
+
         public const string UrlLogin = UrlBase + "/login.php";
         public const string UrlLoginAction = UrlLogin + "?doLogin";
+
+        public const string UrlPokemonCenter = UrlBase + "/pokemon_center.php";
     }
 }

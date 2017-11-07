@@ -25,6 +25,7 @@ namespace TestProject
             }
 
             Console.WriteLine($"\n\nLogged in, welcome {creds[0]}.");
+            sess.Heal();
         }
     }
 }
