@@ -8,6 +8,7 @@ namespace UnovaRPGlib.Xajax
 {
     internal enum DataType
     {
+        Null = '*',
         String = 'S',
         Number = 'N',
         Boolean = 'B'

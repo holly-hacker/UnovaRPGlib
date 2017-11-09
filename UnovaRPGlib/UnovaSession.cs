@@ -86,6 +86,13 @@ namespace UnovaRPGlib
             return UnovaBattle.FromHtml(this, Encoding.UTF8.GetString(resp), pokeId, level, mapId);
         }
 
+        public UnovaBattle StartTrainerBattle(long tid)
+        {
+            string resp = Web.DownloadString(Urls.UrlBattleTrainer + "&tid=" + tid);
+
+            return UnovaBattle.FromHtml(this, resp, tid: tid);
+        }
+
         public void BuildMap(int mapId, int x = 20, int y = 20)
         {
             Web.XajaxString(Urls.UrlMap + "?map=" + mapId, "buildMap", mapId.ToString(), x.ToString(), y.ToString());

@@ -25,10 +25,10 @@ namespace TestProject
 
             Console.WriteLine($"\n\nLogged in, welcome {creds[0]}.");
 
-            TestTrain(sess);
+            TestTrainTrainer(sess);
         }
 
-        private static void TestTrain(UnovaSession sess)
+        private static void TestTrainWild(UnovaSession sess)
         {
             sess.Heal();
             sess.GetBattleTeam();
@@ -37,15 +37,42 @@ namespace TestProject
             {
                 try
                 {
-                    var b = sess.StartWildBattle(Pokemon.Blissey, 40, 33, ShinyType.Shiny);
+                    UnovaBattle b = sess.StartWildBattle(Pokemon.Blissey, 40, 33, ShinyType.Shiny);
 
                     b.Auth();
 
                     string str;
                     while (!(str = b.Attack(Move.FocusPunch)).Contains("span"))
-                    {
                         Console.Write(".");
-                    }
+                    Console.WriteLine();
+                    Console.WriteLine(str);
+
+                    sess.Heal();
+                    sess.GetBattleTeam();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        private static void TestTrainTrainer(UnovaSession sess)
+        {
+            sess.Heal();
+            sess.GetBattleTeam();
+
+            while (true)
+            {
+                try
+                {
+                    UnovaBattle b = sess.StartTrainerBattle(90941693);
+
+                    b.Auth();
+
+                    string str;
+                    while (!(str = b.Attack(Move.FocusPunch)).Contains("span"))
+                        Console.Write(".");
                     Console.WriteLine();
                     Console.WriteLine(str);
 

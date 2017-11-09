@@ -32,12 +32,17 @@ namespace UnovaRPGlib.Xajax
                     Type = DataType.Number;
                     break;
                 default:
-                    Debug.Fail("Unknown type"); //only fails on debug build
-                    Type = DataType.String;
+                    if (o == null) {
+                        Type = DataType.Null;
+                    }
+                    else {
+                        Debug.Fail("Unknown type"); //only fails on debug build
+                        Type = DataType.String;
+                    }
                     break;
             }
 
-            Text = o.ToString();
+            Text = o?.ToString();
         }
 
         public override string ToString() => (char) Type + Text;

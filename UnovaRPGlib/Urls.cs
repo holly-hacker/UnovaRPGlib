@@ -17,5 +17,6 @@ namespace UnovaRPGlib
         public const string UrlSetupTeam = UrlBase + "/setup_team.php";
         public const string UrlBattle = UrlBase + "/battle.php";
         public const string UrlBattleWild = UrlBattle + "?type=wild";
+        public const string UrlBattleTrainer = UrlBattle + "?type=autotrainer";
     }
 }
