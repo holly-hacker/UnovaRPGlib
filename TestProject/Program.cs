@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
+using System.Linq;
+using System.Text;
 using UnovaRPGlib;
+using UnovaRPGlib.Tools;
 
 namespace TestProject
 {
-    internal class Program
+    internal static partial class Program
     {
         private static void Main(string[] args)
         {
@@ -23,41 +25,53 @@ namespace TestProject
 
             Console.WriteLine($"\n\nLogged in, welcome {creds[0]}.");
 
-            //sess.Heal();
+            TestTrain(sess);
+        }
 
-            //var z1 = sess.GetZoneById(1);
-            //var m1 = z1.Maps[0];    //route 101
-            //var team = sess.GetBattleTeam();
+        private static void TestTrain(UnovaSession sess)
+        {
+            sess.Heal();
+            sess.GetBattleTeam();
 
-            while (true) {
-                var b = sess.StartWildBattle(165, 10, 1, 20, 12);
-
-                Console.WriteLine("Press space to battle");
-                b.Auth();
-
-                string str;
-                while (!(str = b.Attack(427)).Contains("span"))
+            while (true)
+            {
+                try
                 {
-                    Console.Write(".");
+                    var b = sess.StartWildBattle(377, 45, 30, 20, 12);
+
+                    b.Auth();
+
+                    string str;
+                    while (!(str = b.Attack(425)).Contains("span"))
+                    {
+                        Console.Write(".");
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine(str);
+
+                    sess.Heal();
+                    sess.GetBattleTeam();
                 }
-                Console.WriteLine();
-                Console.WriteLine(str);
-
-                //b.Run();
-                //Console.WriteLine("Ran");
-
-                sess.Heal();
-                Console.WriteLine("Healed!");
-
-                //we have to (re)load the team before battle, or we'll get an error
-                sess.GetBattleTeam();
-                Console.WriteLine("Reloaded team");
-
-                //sess.BuildMap(1);
-                //Console.WriteLine("rebuilt map");
-
-                //Thread.Sleep(2500);
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
+        }
+
+        private static void GetMoves(UnovaSession sess, long startId, int count = 100)
+        {
+            var d = sess.GetMoves(startId, count);
+
+            var sb = new StringBuilder();
+            var sb2 = new StringBuilder();
+            foreach (int key in d.Keys.OrderBy(i => i))
+            {
+                sb.AppendLine(key.ToString("D3") + ": " + d[key]);
+                sb2.AppendLine(d[key].Replace(" ", "").Replace("-", "") + " = " + key.ToString("D3") + ",");
+            }
+            File.WriteAllText("moves.txt", sb.ToString());
+            File.WriteAllText("movesenum.txt", sb2.ToString());
         }
     }
 }
