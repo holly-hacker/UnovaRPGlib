@@ -828,7 +828,7 @@
         #endregion
     }
 
-    public enum Moves
+    public enum Move
     {
         Absorb = 001,
         Acid = 002,

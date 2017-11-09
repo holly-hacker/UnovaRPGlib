@@ -65,6 +65,7 @@ namespace UnovaRPGlib
             return UnovaPokemon.FromHtml(html);
         }
 
+        public UnovaBattle StartWildBattle(Pokemon pokemon, int level, int mapId, int x, int y) => StartWildBattle((int)pokemon, level, mapId, x, y);
         public UnovaBattle StartWildBattle(int pokeId, int level, int mapId, int x, int y)
         {
             string shiny = "";

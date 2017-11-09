@@ -30,17 +30,17 @@ namespace UnovaRPGlib
             //get tokens
             string fParams = RegexToken.Match(html).Groups[1].Value;
             ub._token = fParams.Split(',').Last().Trim('\'', ' ');
-            ub._runToken = RegexToken.Match(html).Groups[1].Value;
+            ub._runToken = RegexRunToken.Match(html).Groups[1].Value;
 
             return ub;
         }
 
         public void Auth()
         {
-            //TODO: change Attack() parameter to move index (0-based), get moveid[] from this
             SendCommand(idPokemon: PokeId.ToString(), level: Level.ToString(), idMap: _mapId.ToString(), token: _token);
         }
 
+        public string Attack(Move move) => Attack((int)move);
         public string Attack(int attackId)
         {
             //TODO: return results
