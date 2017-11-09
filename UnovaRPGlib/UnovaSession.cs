@@ -65,21 +65,23 @@ namespace UnovaRPGlib
             return UnovaPokemon.FromHtml(html);
         }
 
-        public UnovaBattle StartWildBattle(Pokemon pokemon, int level, int mapId, int x, int y) => StartWildBattle((int)pokemon, level, mapId, x, y);
-        public UnovaBattle StartWildBattle(int pokeId, int level, int mapId, int x, int y)
+        public UnovaBattle StartWildBattle(Pokemon pokemon, int level, int mapId, ShinyType type = ShinyType.Normal, int x = 20, int y = 20) => StartWildBattle((int)pokemon, level, mapId, (int)type, x, y);
+        public UnovaBattle StartWildBattle(int pokeId, int level, int mapId, int type, int x = 20, int y = 20)
         {
-            string shiny = "";
-
-            byte[] resp = Web.UploadValues(Urls.UrlBattleWild, new NameValueCollection {
-                {"token_pokemon", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{pokeId}|{shiny}|{level}|{mapId}"))},
+            var nvc = new NameValueCollection {
+                {"token_pokemon", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{pokeId}|{(type == 0 ? string.Empty : (type).ToString())}|{level}|{mapId}"))},
                 {"id_pokemon", pokeId.ToString()},
                 {"level", level.ToString()},
                 {"id_map", mapId.ToString()},
                 {"x", x.ToString()},
                 {"y", y.ToString()}
-            });
+            };
 
-            //TODO: sanity check, this can go wrong easily
+            if (type != 0) {
+                nvc.Add("shiny", type.ToString());
+            }
+
+            byte[] resp = Web.UploadValues(Urls.UrlBattleWild, nvc);
 
             return UnovaBattle.FromHtml(this, Encoding.UTF8.GetString(resp), pokeId, level, mapId);
         }

@@ -1536,4 +1536,19 @@
         VoltSwitch = 704,
         WaterPledge = 705
     }
+
+    public enum ShinyType
+    {
+        Normal = 0,
+        Shiny = 1,
+
+        /// <summary>Requires 22 badges or Gold membership</summary>
+        Golden = 2,
+        /// <summary>Requires 30 badges</summary>
+        Metallic = 3,
+        /// <summary>Requires 32 badges</summary>
+        Mystic = 4,
+        /// <summary>Requires ?? badges</summary>
+        Dark = 5
+    }
 }

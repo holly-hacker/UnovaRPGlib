@@ -37,12 +37,12 @@ namespace TestProject
             {
                 try
                 {
-                    var b = sess.StartWildBattle(Pokemon.Regirock, 45, 30, 20, 12);
+                    var b = sess.StartWildBattle(Pokemon.Blissey, 40, 33, ShinyType.Shiny);
 
                     b.Auth();
 
                     string str;
-                    while (!(str = b.Attack(Move.Thunder)).Contains("span"))
+                    while (!(str = b.Attack(Move.FocusPunch)).Contains("span"))
                     {
                         Console.Write(".");
                     }
