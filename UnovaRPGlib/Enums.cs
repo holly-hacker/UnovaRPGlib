@@ -1466,7 +1466,7 @@
         ShellSmash = 634,
         HoneClaws = 635,
         ViceGrip = 636,
-
+        AcidSpray = 637,
         AfterYou = 638,
         AllySwitch = 639,
         Bestow = 640,
@@ -1528,7 +1528,12 @@
 
         Steamroller = 697,
         StoredPower = 698,
-
-        StruggleBug = 700
+        StormThrow = 699,
+        StruggleBug = 700,
+        TailSlap = 701,
+        ThousandArrows = 702,
+        VCreate = 703,
+        VoltSwitch = 704,
+        WaterPledge = 705
     }
 }
